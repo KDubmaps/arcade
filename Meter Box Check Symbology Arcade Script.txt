@@ -1,0 +1,14 @@
+var inspect_date = $feature.LastInspectionDate
+var service_type = $feature.ServiceType
+var currentDate = Date();
+var inspect_due = DateDiff(currentDate, inspect_date, 'months');
+var result = "Inspection Status";
+if (inspect_due <= 12) {
+result = "Complete";
+} else if (inspect_due >= 12 && inspect_due <=24) {
+result = "Inspection Pending";
+} else if (inspect_due>= 24) {
+result = "Inspection Due";
+}
+result = service_type + "-" + result;
+return result;
