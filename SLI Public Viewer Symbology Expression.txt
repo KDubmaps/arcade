@@ -1,0 +1,58 @@
+var bothsidesstatus = $feature.bothsidesstatus
+var utilstatus = $feature.utilstatus
+var custstatus = $feature.custstatus
+var utilsource = $feature.utilsource
+var custsource = $feature.custsource
+
+if (utilstatus == 1 && utilsource == "Installation record (e.g., tap card)" || custstatus == 1 && custsource == "Installation record (e.g., tap card)") {
+
+     return "Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Water sampling only with no records" || custstatus == 1 && custsource == "Water sampling only with no records") {
+
+     return "Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Field inspection only with no records" || custstatus == 1 && custsource == "Field inspection only with no records") {
+
+     return "Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Service line repair or replacement record" || custstatus == 1 && custsource == "Service line repair or replacement record") {
+
+     return "Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Statistical analysis" || custstatus == 1 && custsource == "Statistical analysis") {
+
+     return "Assumed Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Previous materials evaluation" || custstatus == 1 && custsource == "Previous materials evaluation") {
+
+     return "Assumed Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Installation date is after the lead ban" || custstatus == 1 && custsource == "Installation date is after the lead ban") {
+
+     return "Assumed Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Service line diameter is greater than 2 inches" || custstatus == 1 && custsource == "Service line diameter is greater than 2 inches") {
+
+     return "Assumed Lead" 
+}
+else if (utilstatus == 1 && utilsource == "Other" || custstatus == 1 && custsource == "Other") {
+
+     return "Assumed Lead" 
+}
+else if (bothsidesstatus == "Lead" && utilsource == null && custsource == null) {
+
+     return "Assumed Lead" 
+}
+else if (bothsidesstatus == "Non-Lead") {
+
+     return "Non-Lead"
+}
+else if (bothsidesstatus == "Galvanized Requiring Replacement") {
+
+     return "Galvanized Requiring Replacement"
+}
+else if (bothsidesstatus == "Unknown") {
+
+     return "Unknown"
+}

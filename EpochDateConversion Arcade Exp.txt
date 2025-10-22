@@ -1,0 +1,3 @@
+// Epoch Date Conversion
+
+var recordDate = Date($feature.INSTALLDATE)

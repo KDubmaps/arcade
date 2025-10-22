@@ -1,0 +1,105 @@
+Pierce County Assessor Parcel Search:
+var id = $feature.TaxParcelNumber;
+var url = 'https://atip.piercecountywa.gov/#/app/propertyDetail/'+id+'/summary';
+return url
+
+As-Built Lookup:
+var id = $feature.JobNumber;
+var url = 'https://lakewoodwater.sharepoint.com/:f:/r/sites/As-Builts/Shared%20Documents/Job%20Folders/Numbered%20Job%20Folders/'+id+'';
+return url
+
+Mapbook Doc Lookup
+var id = $feature.Mapbook;
+var url = 'https://lakewoodwater.sharepoint.com/:f:/r/sites/As-Builts/Shared%20Documents/System%20Maps/Historic%20System%20Maps/Map%20Tile%20'+id+'';
+return url
+
+LWD Image Library Search - Single Image
+var id = $feature.name;
+var url = 'https://lakewoodwater.sharepoint.com/sites/As-Builts/Shared%20Documents/Asset%20Images%20and%20Documents%20(not%20associated%20with%20jobs)/Photo%20Archive%20Bin/'+id;
+return url
+
+LWD Image Library Search - Folder
+var id = $feature.FACILITYID;
+var url = 'https://lakewoodwater.sharepoint.com/sites/As-Builts/Shared%20Documents/Asset%20Images%20and%20Documents%20(not%20associated%20with%20jobs)/GIS%20Attachments/'+id+'';
+return url
+
+Google Streetview:
+// Write a script to return a value to show in the pop-up.
+// For example, get the average of 4 fields:
+// Average($feature.SalesQ1, $feature.SalesQ2, $feature.SalesQ3, $feature.SalesQ4)
+
+var PointGeometry = Centroid(Geometry($feature));
+
+var ArcadeX = PointGeometry.x;
+var ArcadeY = PointGeometry.y;
+var ArcadeSr = PointGeometry.spatialReference.wkid;
+var Latitude, Longitude;
+
+function AuxSphereToLatLon(x, y) {
+  Console("Converting...");
+  var rMajor = 6378137;
+  var shift = PI * rMajor;
+  Longitude = x / shift * 180.0;
+  Latitude = y / shift * 180.0;
+  Latitude = 180 / PI * (2 * Atan(Exp(Latitude * PI / 180.0)) - PI / 2.0);
+}
+
+if (ArcadeSr == 4326) {
+  Console("4326 Spatial Reference - No Conversion Necessary");
+  Latitude = ArcadeY;
+  Longitude = ArcadeX;
+} else if (ArcadeSr == 102100) {
+  Console("102100 Spatial Reference - Conversion Necessary");
+  AuxSphereToLatLon(ArcadeX, ArcadeY);
+} else {
+  Console(ArcadeSr + " Spatial Reference is not supported - currently works with Web Maps where the basemap is in WGS84 (4326) or Web Mercator Auxiliary Sphere 102100");
+}
+
+var url = "http://maps.google.com/maps?q=&layer=c&cbll=" + text(Latitude) + "," + text(Longitude);
+return url;
+
+Google Map View (Drop a pin in map and zoom) (This version opens to Default Street Map. To open to Hybrid Satellite map change "t=" at the end from "m" to "h")
+var PointGeometry = Centroid(Geometry($feature));
+
+var ArcadeX = PointGeometry.x;
+var ArcadeY = PointGeometry.y;
+var ArcadeSr = PointGeometry.spatialReference.wkid;
+var Latitude, Longitude;
+
+function AuxSphereToLatLon(x, y) {
+  Console("Converting...");
+  var rMajor = 6378137;
+  var shift = PI * rMajor;
+  Longitude = x / shift * 180.0;
+  Latitude = y / shift * 180.0;
+  Latitude = 180 / PI * (2 * Atan(Exp(Latitude * PI / 180.0)) - PI / 2.0);
+}
+
+if (ArcadeSr == 4326) {
+  Console("4326 Spatial Reference - No Conversion Necessary");
+  Latitude = ArcadeY;
+  Longitude = ArcadeX;
+} else if (ArcadeSr == 102100) {
+  Console("102100 Spatial Reference - Conversion Necessary");
+  AuxSphereToLatLon(ArcadeX, ArcadeY);
+} else {
+  Console(ArcadeSr + " Spatial Reference is not supported - currently works with Web Maps where the basemap is in WGS84 (4326) or Web Mercator Auxiliary Sphere 102100");
+}
+
+var url = "http://maps.google.com/maps?q=" + text(Latitude) + "+" + text(Longitude) + "+(label)&ll=" + text(Longitude) + ","+ text(Latitude) + "&spn=0.004250,0.011579&t=m&iwloc=A&hl=en";
+return url;
+
+
+LWD Photo Archive SharePoint Access Custom Pop up
+
+var id = $feature.name;
+var url = 'https://lakewoodwater.sharepoint.com/:f:/r/sites/As-Builts/Shared%20Documents/asset%20images%20and%20documents%20(not%20associated%20with%20jobs)/photo%20archive%20bin/'+id+'';
+return url
+
+Box Check Symbology Formula
+$feature.LastInspectionDate>= DateAdd(Today(),-2,'years')
+
+Easement Doc Lookup
+var id = $feature.LinktoDocs;
+var url = 'https://lakewoodwater.sharepoint.com/:b:/r/sites/As-Builts/Shared%20Documents/Easements/'+id+'.pdf';
+return url

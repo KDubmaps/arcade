@@ -1,0 +1,3 @@
+//Asset ID Attribute Rule Formula
+var id=NextSequenceValue("ServiceSequence");
+return "S-" + (id)
