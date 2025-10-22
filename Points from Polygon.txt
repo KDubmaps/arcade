@@ -1,0 +1,8 @@
+// Define the point feature class from the referenced data store
+var point_fc = FeatureSetByName($map, "Meter", ['*'], false)
+
+// Identify the intersected point features
+var int_point = Intersects(point_fc, $feature)
+
+// Return the count of the points
+return Count(int_point)
