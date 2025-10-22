@@ -1,0 +1,42 @@
+Proper Case Text Formula
+var txtProper = Proper($feature.COUNTY, 'everyword')
+return txtProper
+
+Convert Codes/Abbreviations to readable string formula
+var distNam = $feature.PARKDIST
+
+When (
+    distNam == "CAC", "Cades Cove",
+    distNam == "CAT", "Cataloochie",
+    distNam == "COS", "Cosby",
+    distNam == "DCR", "Deep Creek",
+    distNam == "LRI", "Little River",
+    distNam == "OCO", "Oconaluftee",
+    "Unknown")
+
+Unit Conversion by conversion factor (example is feet to meters)
+Text($feature.ELEV * 0.3048, "#,###")
+
+Remove Blank or Empty Spaces
+var valField = $feature.AFIELD
+var boolEmpty = IsEmpty($feature.AFIELD)
+
+When(
+    valField == NULL, "Unknown",
+    valField == " ", "Unknown",
+    boolEmpty == true, "Unknown", 
+valField)
+
+Or use:
+DefaultValue($feature.AFIELD, 'Unknown')
+
+Or use to catch spaces as well:
+DefaultValue(Trim($feature.AFIELD), 'Unknown')
+
+Get Attributes from another layer in current map:
+// Get layer named "Counties" in the map
+var fsetCounties = FeatureSetByName($map,"Counties")
+
+Get Attributes from another layer not in current map:
+var fsetStates = FeatureSetByPortalItem(Portal('https://www.arcgis.com/'), 
+"774019f31f8549c39b5c72f149bbe74e", 0)
