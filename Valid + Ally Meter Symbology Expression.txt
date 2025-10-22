@@ -1,0 +1,3 @@
+if ($feature.Validated == 'Y' && $feature.REMOTEMETER != 'Y') {return 1} //is validated AND not remote
+if ($feature.Validated != 'Y' && $feature.REMOTEMETER != 'Y') {return 2} //is not validated AND not remote
+else {return 3} //is validated or not AND is remote
